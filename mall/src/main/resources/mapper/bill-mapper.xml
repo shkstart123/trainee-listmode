@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mall.dao.BillDAO">
+
+
+    <select id="findBillById" resultMap="myBill">
+      SELECT
+	b1.id,
+	b1.STATUS,
+	b1.date,
+	u.id uid,
+	u.username,
+	u.PASSWORD,
+	u.department,
+	u.type,
+	b2.id b2id,
+	b2.number,
+	b2.place,
+	b2.DAY,
+	g.id xgid,
+	g.NAME,
+	g.model,
+	s.id sid,
+	s.content,
+	s.type stype
+FROM
+	bill b1
+	INNER JOIN USER u ON b1.uid = u.id
+	INNER JOIN billitem b2 ON b1.id = b2.bid
+	INNER JOIN goods g ON b2.gid = g.id
+	LEFT JOIN suggestion s ON b1.id = s.bid
+WHERE
+	b1.id =#{id}
+
+    </select>
+
+    <resultMap id="myBill" type="bill">
+        <id property="id" column="id"/>
+        <result property="status" column="status"/>
+        <result property="date" column="date"/>
+        <association property="user" javaType="user">
+            <id property="id" column="uid"/>
+            <result property="username" column="username"/>
+            <result property="password" column="password"/>
+            <result property="department" column="department"/>
+            <result property="type" column="type"/>
+        </association>
+        <collection property="billItems" ofType="billItem">
+            <id property="id" column="b2id"/>
+            <result property="number" column="number"/>
+            <result property="day" column="day"/>
+            <result property="place" column="place"/>
+            <association property="goods" javaType="goods">
+                <id property="id" column="xgid"/>
+                <result property="name" column="name"/>
+                <result property="model" column="model"/>
+            </association>
+        </collection>
+        <collection property="suggestions" ofType="suggestion">
+            <id property="id" column="sid"/>
+            <result property="content" column="content"/>
+            <result property="type" column="stype"/>
+
+        </collection>
+    </resultMap>
+
+</mapper>
