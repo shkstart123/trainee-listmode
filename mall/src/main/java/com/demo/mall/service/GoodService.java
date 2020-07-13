@@ -15,7 +15,7 @@ public class GoodService {
     private GoodsDAO goodsDAO;
 
     public Goods selectById(int id){
-        Goods goods = goodsDAO.selectById(id);
-        return goods;
+        return goodsDAO.selectById(id);
+
     }
 }

@@ -1,5 +1,6 @@
 package com.demo.mall.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.demo.mall.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,12 @@ public class BillController {
     @GetMapping("/list")
     public String list() {
         return billService.list();
+    }
+
+    @GetMapping("/one")
+    public String list(int id)
+    {
+        return JSON.toJSONString(billService.findBillById(id));
     }
 
 }

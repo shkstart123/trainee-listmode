@@ -11,8 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ContextConfiguration(classes = MallApplication.class)
 class MallApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+//    @Test
+//    void contextLoads() {
+//    }
 
 }

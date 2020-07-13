@@ -33,7 +33,7 @@ public class SuggestionService {
     }
 
     public int selectCountByBid(int bid) {
-        QueryWrapper<Suggestion> queryWrapper = new QueryWrapper();
+        QueryWrapper<Suggestion> queryWrapper = new QueryWrapper<>();
         queryWrapper.between("bid", bid, bid);
         return suggestionDAO.selectCount(queryWrapper);
     }

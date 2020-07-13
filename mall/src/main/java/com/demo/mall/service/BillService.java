@@ -1,17 +1,18 @@
 package com.demo.mall.service;
 
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.alibaba.fastjson.JSON;
+
+
 import com.demo.mall.dao.BillDAO;
-import com.demo.mall.dao.BillItemDAO;
+
 import com.demo.mall.entity.Bill;
 import com.demo.mall.entity.BillItem;
-import com.demo.mall.entity.Goods;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.concurrent.ForkJoinPool;
+
 
 /**
  * @author shkstart
@@ -33,7 +34,8 @@ public class BillService {
     public void settleCart(int uid) {
         Bill bill= new Bill();
 
-        HashMap<Integer, BillItem> billItems = billItemService.getCart();
+        Map<Integer, BillItem> billItems = billItemService.getCart();
+        Iterator<Map.Entry<Integer, BillItem>> it = billItems.entrySet().iterator();
 
         BillItem billItem = null;
         bill.setUid(uid);             //此处假设默认用户Id
@@ -41,20 +43,24 @@ public class BillService {
         bill.setStatus(0);
         billDAO.insert(bill);
 
-        for(int key:billItems.keySet()){
-            billItem =  billItems.get(key);
+        while (it.hasNext()) {
+            Map.Entry<Integer, BillItem> entry = it.next();
+            billItem =  entry.getValue();
             billItem.setBid(bill.getId());
             billItemService.insert(billItem);
         }
+
 
         billItems.clear();
     }
     public int updateSatus(Bill bill){
         return billDAO.updateById(bill);
     }
+
     public Bill selectById(int id){
         return billDAO.selectById(id);
     }
+
     public String list(){
         List<Map<String, Object>> billItems = new ArrayList<>();
         List<Bill> bills = billDAO.selectList(null);
@@ -73,6 +79,10 @@ public class BillService {
             hashMap.put("contentList",contentList);
             billItems.add(hashMap);
         }
-        return JSONObject.toJSONString(billItems);
+        return JSON.toJSONString(billItems);
+
+    }
+    public Bill findBillById(int id){
+        return billDAO.findBillById(id);
     }
 }

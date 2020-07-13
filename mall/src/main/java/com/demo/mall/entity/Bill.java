@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author shkstart
@@ -29,6 +30,15 @@ public class Bill {
     //申请时间
     @TableField(value = "date")
     private Date date;
+
+    @TableField(exist = false)
+    private List<BillItem> billItems;
+
+    @TableField(exist = false)
+    private List<Suggestion> suggestions;
+
+    @TableField(exist = false)
+    private User user;
 
 
 }

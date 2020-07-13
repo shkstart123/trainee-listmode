@@ -1,10 +1,11 @@
 package com.demo.mall.service;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
+
 import com.demo.mall.dao.BillItemDAO;
-import com.demo.mall.dao.GoodsDAO;
+
 import com.demo.mall.entity.BillItem;
-import com.demo.mall.entity.Goods;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +58,7 @@ public class BillItemService {
         myCart.put(item.getGid(), item);
         return true;
     }
+
     //申请人看到的“购物车”
     public String list() {
         getCart();
@@ -68,7 +70,7 @@ public class BillItemService {
             items.add(hashMap);
         }
 
-        return JSONObject.toJSONString(items);
+        return JSON.toJSONString(items);
     }
 
     public String listOne(int goodsId) {
@@ -76,7 +78,8 @@ public class BillItemService {
         HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("item",myCart.get(goodsId));
         hashMap.put("goods",goodService.selectById(myCart.get(goodsId).getGid()));
-        return JSONObject.toJSONString(hashMap);
+        return  JSON.toJSONString(hashMap);
+
     }
 
     public int getOwnerId() {
@@ -97,10 +100,10 @@ public class BillItemService {
        return billItemDAO.selectByMap(hashMap);
     }
 
-    public HashMap<Integer, BillItem> getCart() {
+    public Map<Integer, BillItem> getCart() {
         myCart = (HashMap) session.getAttribute("myCart");
         if (myCart == null) {
-            myCart = new HashMap<Integer, BillItem>();
+            myCart = new HashMap<>();
             session.setAttribute("myCart", myCart);
         }
         return myCart;

@@ -1,12 +1,11 @@
 package com.demo.mall.controller;
 
-import com.demo.mall.dao.SuggestionDAO;
-import com.demo.mall.entity.BillItem;
+
 import com.demo.mall.entity.Suggestion;
 import com.demo.mall.service.SuggestionService;
 import com.demo.mall.util.MallUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

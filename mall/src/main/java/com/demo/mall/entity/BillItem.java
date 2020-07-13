@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+
 
 /**
  * @author shkstart
@@ -35,5 +35,6 @@ public class BillItem {
     @TableField(value = "place")
     private String place;
 
-
+    @TableField(exist = false)
+    private Goods goods;
 }
