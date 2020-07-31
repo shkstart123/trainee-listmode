@@ -1,0 +1,28 @@
+
+
+spring:
+  application:
+    name: provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        server-addr: 127.0.0.1:8848 # 配置中心地址
+        file-extension: yaml
+        namespace: 782ec2f5-9a4c-474d-a6fe-7c8db50762b4
+        group: TEST_GROUP # 测试组
+
+  datasource:
+    url: jdbc:mysql://192.168.56.10:3306/rbac?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.demo.producer.entity
+  configuration:
+    map-underscore-to-camel-case: true
